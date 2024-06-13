@@ -12,7 +12,7 @@ BEGIN
     IF b = 0 THEN
         SET result = 0;
     ELSE
-        SET result = a / b;
+        SET result = CAST(a AS FLOAT) / CAST(b AS FLOAT);
     END IF;
 
     RETURN result;

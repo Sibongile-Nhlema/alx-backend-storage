@@ -2,17 +2,19 @@
 -- the first by the second number or returns 0
 -- if the second number is equal to 0.
 
+DROP FUNCTION IF EXISTS SafeDiv;
+
 DELIMITER //
 
 CREATE FUNCTION SafeDiv(a INT, b INT)
-RETURNS DECIMAL(10, 4)
+RETURNS FLOAT
 BEGIN
-    DECLARE result DECIMAL(10, 4);
+    DECLARE result FLOAT;
 
     IF b = 0 THEN
         SET result = 0;
     ELSE
-        SET result = CAST(a AS FLOAT) / CAST(b AS FLOAT);
+        SET result = a / b;
     END IF;
 
     RETURN result;

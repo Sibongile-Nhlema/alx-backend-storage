@@ -1,4 +1,5 @@
 // Script insert a document in a colection called school
 // document must have one attribute name with value “Holberton school”
 // database name will be passed as option of mongo command
-db.school.insert([{name: "Holberton school"}])
+db.school.insertOne({ name: "Holberton school" });
+

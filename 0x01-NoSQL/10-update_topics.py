@@ -20,6 +20,3 @@ def update_topics(mongo_collection, name, topics):
             {"name": name},
             {"$set": {"topics": topics}}
         )
-    else:
-        # Handle case where document with 'name' does not exist
-        print(f"Document with name '{name}' not found. Skipping update.")

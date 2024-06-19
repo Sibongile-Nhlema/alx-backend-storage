@@ -14,6 +14,9 @@ def count_calls(method: Callable) -> Callable:
     '''
     @functools.wraps(method)
     def wrapper(self, *args, **kwargs):
+        '''
+        Wrapper for functools
+        '''
         self._redis.incr(method.__qualname__)
         return method(self, *args, **kwargs)
     return wrapper
@@ -25,6 +28,9 @@ def call_history(method: Callable) -> Callable:
     '''
     @functools.wraps(method)
     def wrapper(self, *args, **kwargs):
+        '''
+        Wrapper for functools
+        '''
         input_key = f'{method.__qualname__}:inputs'
         output_key = f'{method.__qualname__}:outputs'
 

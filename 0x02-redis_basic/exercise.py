@@ -5,6 +5,18 @@ Module handling the method "store" that generates a random key
 import redis
 import uuid
 from typing import Union, Callable, Optional
+import functools
+
+
+def count_calls(methods: Callable) -> Callable:
+    '''
+    Decorator that counts the number of calls to a method.
+    '''
+    @functools.wraps(method)
+    def wrapper(self, *args, **kwargs):
+        self._redis.incr(method.__qualname__)
+        return method(self, *args, **kwargs)
+    return wrapper
 
 
 class Cache:
@@ -15,6 +27,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         '''
         Store data in Redis with a random key and return the key.

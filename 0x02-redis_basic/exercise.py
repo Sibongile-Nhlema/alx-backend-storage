@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 '''
-Module handling the method "store" that generates a random key
+Module handling the method "store" that generates a random key.
 '''
 import redis
 import uuid
@@ -8,7 +8,7 @@ from typing import Union, Callable, Optional
 import functools
 
 
-def count_calls(methods: Callable) -> Callable:
+def count_calls(method: Callable) -> Callable:
     '''
     Decorator that counts the number of calls to a method.
     '''
@@ -21,12 +21,12 @@ def count_calls(methods: Callable) -> Callable:
 
 def call_history(method: Callable) -> Callable:
     '''
-    Decorator to store the history of inputs and outputs for a function
+    Decorator to store the history of inputs and outputs for a function.
     '''
     @functools.wraps(method)
     def wrapper(self, *args, **kwargs):
-        input_key = f"{method.__qualname__}:inputs"
-        output_key = f"{method.__qualname__}:outputs"
+        input_key = f'{method.__qualname__}:inputs'
+        output_key = f'{method.__qualname__}:outputs'
 
         self._redis.rpush(input_key, str(args))
         output = method(self, *args, **kwargs)
@@ -43,13 +43,13 @@ def replay(method: Callable):
     redis_client = method.__self__._redis
     method_qualname = method.__qualname__
 
-    inputs = redis_client.lrange(f"{method_qualname}:inputs", 0, -1)
-    outputs = redis_client.lrange(f"{method_qualname}:outputs", 0, -1)
+    inputs = redis_client.lrange(f'{method_qualname}:inputs', 0, -1)
+    outputs = redis_client.lrange(f'{method_qualname}:outputs', 0, -1)
 
-    print(f"{method_qualname} was called {len(inputs)} times:")
+    print(f'{method_qualname} was called {len(inputs)} times:')
 
     for input, output in zip(inputs, outputs):
-        print(f"{method_qualname}(*{input.decode('utf-8')}) -> {output.decode('utf-8')}")
+        print(f'{method_qualname}(*{input.decode("utf-8")}) -> {output.decode("utf-8")}')
 
 
 class Cache:

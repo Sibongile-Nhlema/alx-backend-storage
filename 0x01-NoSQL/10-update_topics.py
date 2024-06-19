@@ -15,7 +15,7 @@ def update_topics(mongo_collection, name, topics):
     # Check if the document exists
     existing_school = mongo_collection.find_one({"name": name})
     if existing_school:
-        # Update topics for the found document
+        # Update topics for found document
         mongo_collection.update_many(
             {"name": name},
             {"$set": {"topics": topics}}

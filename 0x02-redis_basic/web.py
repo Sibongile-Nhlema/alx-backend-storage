@@ -8,6 +8,7 @@ import redis
 from functools import wraps
 from typing import Callable
 
+
 redis_client = redis.Redis()
 
 
@@ -35,6 +36,7 @@ def cache_page(expiration: int = 10):
             return page_content
         return wrapper
     return decorator
+
 
 @cache_page(expiration=10)
 def get_page(url: str) -> str:

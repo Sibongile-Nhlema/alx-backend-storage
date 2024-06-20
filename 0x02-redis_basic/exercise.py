@@ -55,10 +55,14 @@ def replay(method: Callable):
     print(f'{method_qualname} was called {len(inputs)} times:')
 
     for input, output in zip(inputs, outputs):
-        print(f'{method_qualname}(*{input.decode("utf-8")}) -> {output.decode("utf-8")}')
+        print(f'{method_qualname}(*{input.decode("utf-8")}) -> '
+              f'{output.decode("utf-8")}')
 
 
 class Cache:
+    '''
+    cache class stores the data agrument
+    '''
     def __init__(self):
         '''
         Initialize the Redis client and flush the database.
